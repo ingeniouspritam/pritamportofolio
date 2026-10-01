@@ -43,12 +43,12 @@ swa deploy ./dist --env production
 If you prefer deploying to **Azure App Service (Web App)**:
 
 ### Configuration details:
-- **Runtime stack**: `Node 20 LTS`
+- **Runtime stack**: `Node 26 (Preview)` or `Node 20 / 22 LTS`
 - **Operating System**: `Linux`
 - **Startup Command**: `node server.ts` or `npm start`
 - The repository already includes `server.ts` which runs Express and serves `dist/` with SPA routing and `/api/health`.
 
-### Deploy using Azure CLI (`az webapp`):
+### Deploy with Node 26 (Preview) using Azure CLI:
 ```bash
 # 1. Log in to Azure
 az login
@@ -56,7 +56,22 @@ az login
 # 2. Build the application
 npm run build
 
-# 3. Create and deploy in one command:
+# 3. Create and deploy with Node 26 (Preview):
+az webapp up \
+  --resource-group rg-pritam-portfolio \
+  --name pritam-portfolio-app \
+  --runtime "NODE:26-preview" \
+  --sku B1
+
+# Or configure existing Linux web app to use Node 26 (preview):
+az webapp config set \
+  --resource-group rg-pritam-portfolio \
+  --name pritam-portfolio-app \
+  --linux-fx-version "NODE|26-preview"
+```
+
+### Deploy with Node 20 / 22 LTS:
+```bash
 az webapp up \
   --resource-group rg-pritam-portfolio \
   --name pritam-portfolio-app \

@@ -20,6 +20,7 @@ app.get('/api/health', (req, res) => {
     status: 'ok',
     message: 'Azure Web Service is healthy',
     developer: 'Pritam Kumar',
+    nodeVersion: process.version,
     environment: process.env.NODE_ENV || 'production',
     uptime: `${Math.floor(process.uptime())}s`,
     timestamp: new Date().toISOString()

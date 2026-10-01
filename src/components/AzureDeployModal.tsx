@@ -27,13 +27,20 @@ npm install -g @azure/static-web-apps-cli
 # Step 3: Deploy directly to Azure
 swa deploy ./dist --app-name pritam-portfolio --env production`;
 
-  const appServiceCliCommand = `# Step 1: Login to Azure CLI
-az login
+  const appServiceCliCommandNode26 = `# Deploy using Node 26 (Preview) on Azure App Service Linux
+az webapp up \\
+  --resource-group rg-pritam-portfolio \\
+  --name pritam-portfolio-app \\
+  --runtime "NODE:26-preview" \\
+  --sku B1
 
-# Step 2: Build the project
-npm run build
+# Or set existing App Service to Node 26 (preview):
+az webapp config set \\
+  --resource-group rg-pritam-portfolio \\
+  --name pritam-portfolio-app \\
+  --linux-fx-version "NODE|26-preview"`;
 
-# Step 3: Provision and upload to Azure App Service Linux
+  const appServiceCliCommand = `# Deploy using Node 20 LTS or Node 22 LTS on Azure App Service
 az webapp up \\
   --resource-group rg-pritam-portfolio \\
   --name pritam-portfolio-app \\
@@ -181,15 +188,49 @@ az webapp up \\
                 Deploying to <span className="text-white font-medium">Azure App Service (Linux Web App)</span> runs the Node.js production server defined in <code className="text-sky-300 font-mono">server.ts</code>, complete with health check probes at <code className="text-sky-300 font-mono">/api/health</code>.
               </div>
 
+              {/* Node 26 Preview Highlight Box */}
+              <div className="p-4 rounded-xl bg-purple-950/20 border border-purple-800/40 text-xs text-purple-200 space-y-2">
+                <div className="font-bold text-white flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+                  <span>Node 26 (Preview) Support on Azure:</span>
+                </div>
+                <p className="text-slate-300 leading-relaxed">
+                  <strong>Haan, Node 26 (Preview) bilkul support karta hai!</strong> Azure App Service Linux preview runtimes provide early access to upcoming Node.js releases. Our project is built with modern ES Modules, React 19, and native fetch, ensuring 100% zero-dependency compatibility with Node 26.
+                </p>
+                <div className="text-[11px] text-purple-300">
+                  Azure Portal setting: <strong>Settings &gt; Configuration &gt; General Settings &gt; Stack: Node &gt; Version: Node 26 (Preview)</strong>
+                </div>
+              </div>
+
+              {/* Node 26 Preview CLI */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">Deploy via Azure CLI</h4>
+                  <h4 className="text-xs font-bold text-purple-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <span>Deploy with Node 26 (Preview)</span>
+                  </h4>
+                  <button
+                    onClick={() => handleCopy('appservice-cli-26', appServiceCliCommandNode26)}
+                    className="flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300 cursor-pointer"
+                  >
+                    {copiedId === 'appservice-cli-26' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedId === 'appservice-cli-26' ? 'Copied' : 'Copy Node 26 Commands'}</span>
+                  </button>
+                </div>
+                <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-slate-300 overflow-x-auto">
+                  <pre>{appServiceCliCommandNode26}</pre>
+                </div>
+              </div>
+
+              {/* Standard LTS CLI */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">Deploy with Node 20 / 22 LTS</h4>
                   <button
                     onClick={() => handleCopy('appservice-cli', appServiceCliCommand)}
                     className="flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300 cursor-pointer"
                   >
                     {copiedId === 'appservice-cli' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedId === 'appservice-cli' ? 'Copied' : 'Copy Commands'}</span>
+                    <span>{copiedId === 'appservice-cli' ? 'Copied' : 'Copy LTS Commands'}</span>
                   </button>
                 </div>
                 <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-slate-300 overflow-x-auto">
@@ -198,8 +239,8 @@ az webapp up \\
               </div>
 
               <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-400 space-y-1">
-                <div className="font-semibold text-slate-200">Runtime Configuration:</div>
-                <div>Node version: 20 LTS · Start command: <code className="text-sky-300 font-mono">npm start</code> (runs tsx server.ts) · Port mapped to <code className="text-sky-300 font-mono">process.env.PORT</code>.</div>
+                <div className="font-semibold text-slate-200">Runtime Verification:</div>
+                <div>Once deployed, ping your app at <code className="text-sky-300 font-mono">/api/health</code> to inspect the active Node version in the response JSON.</div>
               </div>
             </div>
           )}
