@@ -1,0 +1,8 @@
+{
+  "name": "Pritam Kumar | React Developer Portfolio & Azure Deploy",
+  "description": "Interactive developer portfolio of Pritam Kumar, Frontend Web Developer specializing in React.js, Tailwind CSS, JavaScript (ES6+), and enterprise software. Configured for seamless deployment on Azure Web App Service.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
