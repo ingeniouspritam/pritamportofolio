@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { FileText, Cloud, Menu, X, ArrowUpRight } from 'lucide-react';
+import { FileText, Menu, X, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
   onOpenResume: () => void;
-  onOpenAzureGuide: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenResume, onOpenAzureGuide }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -63,15 +62,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume, onOpenAzureGuide }
         {/* Zone 3: 1-2 Primary Actions */}
         <div className="hidden sm:flex items-center gap-3">
           <button
-            onClick={onOpenAzureGuide}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-sky-300 bg-sky-950/50 hover:bg-sky-900/60 border border-sky-700/50 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
-            title="Azure Web Service Deployment Instructions"
-          >
-            <Cloud className="w-3.5 h-3.5" />
-            <span>Azure Ready</span>
-          </button>
-
-          <button
             onClick={onOpenResume}
             className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-900 bg-sky-400 hover:bg-sky-300 rounded-lg transition-colors whitespace-nowrap shadow-sm cursor-pointer"
           >
@@ -114,16 +104,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume, onOpenAzureGuide }
             ))}
           </nav>
           <div className="pt-2 border-t border-slate-800/80 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenAzureGuide();
-              }}
-              className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-sky-300 bg-sky-950/40 border border-sky-800/50 rounded-lg"
-            >
-              <Cloud className="w-4 h-4" />
-              <span>Azure Web Service Guide</span>
-            </button>
             <a
               href="https://ingeniouspritam.netlify.app/"
               target="_blank"

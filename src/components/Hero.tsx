@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { PERSONAL_INFO } from '../data/portfolioData.ts';
-import { ArrowRight, FileText, Cloud, Check, Copy, Terminal, ExternalLink, MapPin, Mail } from 'lucide-react';
+import { ArrowRight, FileText, Check, Copy, Terminal, ExternalLink, MapPin, Mail, Code2 } from 'lucide-react';
 
 interface HeroProps {
   onOpenResume: () => void;
-  onOpenAzureGuide: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenResume, onOpenAzureGuide }) => {
-  const [activeTab, setActiveTab] = useState<'profile' | 'azure' | 'skills'>('profile');
+export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
+  const [activeTab, setActiveTab] = useState<'profile' | 'projects' | 'skills'>('profile');
   const [copied, setCopied] = useState(false);
 
   const codeSnippets = {
@@ -25,17 +24,19 @@ export const developerProfile = {
   location: "Samastipur, Bihar, India",
   email: "ingeniouspritam@gmail.com"
 };`,
-    azure: `# Deploy this React app directly to Microsoft Azure
-# Target: Azure Static Web Apps (Free Tier + CDN)
-swa deploy ./dist \\
-  --app-name pritam-portfolio \\
-  --env production
-
-# Or Deploy to Azure App Service (Linux Node.js)
-az webapp up \\
-  --name pritam-portfolio-app \\
-  --runtime "NODE:22-lts" \\
-  --sku B1`,
+    projects: `// Featured Frontend & Full-Stack Projects
+export const featuredProjects = [
+  {
+    name: "Stock Master (Billing & Inventory)",
+    stack: ["React.js", "Express", "Tailwind CSS", "MySQL"],
+    highlights: ["Real-time Stock Levels", "GST Invoicing", "Instant PDF"]
+  },
+  {
+    name: "JS Dhaba (Interactive Web App)",
+    stack: ["JavaScript", "HTML5", "CSS3", "DOM Architecture"],
+    liveUrl: "https://jsdhaba.netlify.app/"
+  }
+];`,
     skills: `{
   "frontend": ["React.js", "Tailwind CSS", "HTML5", "CSS3", "JavaScript"],
   "backendBasics": ["Node.js", "Express", "PHP", "MySQL", "REST APIs"],
@@ -88,7 +89,7 @@ az webapp up \\
               <span aria-hidden="true" className="text-slate-600">·</span>
               <span>Manipal University BCA</span>
               <span aria-hidden="true" className="text-slate-600">·</span>
-              <span className="text-sky-400 font-mono">Azure Web Service Ready</span>
+              <span className="text-sky-400 font-mono">Modern Web Architecture</span>
             </div>
 
             {/* Primary Action Buttons */}
@@ -108,14 +109,6 @@ az webapp up \\
                 <FileText className="w-4 h-4 text-sky-400" />
                 <span>Resume PDF</span>
               </button>
-
-              <button
-                onClick={onOpenAzureGuide}
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-sky-300 hover:text-sky-200 bg-sky-950/40 hover:bg-sky-900/50 border border-sky-800/50 rounded-lg transition-colors cursor-pointer"
-              >
-                <Cloud className="w-4 h-4" />
-                <span>Azure Deploy Guide</span>
-              </button>
             </div>
 
             {/* Claim-to-Proof Adjacency Stats */}
@@ -130,7 +123,7 @@ az webapp up \\
               </div>
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-sky-400 font-mono tabular-nums">100%</div>
-                <div className="text-xs text-slate-400 mt-0.5">Azure & Netlify Ready</div>
+                <div className="text-xs text-slate-400 mt-0.5">Responsive & Fast</div>
               </div>
             </div>
           </div>
@@ -146,7 +139,7 @@ az webapp up \\
                   <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
                   <span className="text-xs text-slate-400 font-mono ml-2 flex items-center gap-1.5">
                     <Terminal className="w-3.5 h-3.5 text-sky-400" />
-                    pritam@azure-workspace:~$
+                    pritam@developer-workspace:~$
                   </span>
                 </div>
 
@@ -173,7 +166,7 @@ az webapp up \\
               <div className="flex items-center gap-1 p-1.5 bg-slate-950/60 border-b border-slate-800/80">
                 <button
                   onClick={() => setActiveTab('profile')}
-                  className={`px-3 py-1 text-xs font-mono rounded-md transition-colors ${
+                  className={`px-3 py-1 text-xs font-mono rounded-md transition-colors cursor-pointer ${
                     activeTab === 'profile'
                       ? 'bg-slate-800 text-sky-300 font-semibold shadow-sm'
                       : 'text-slate-400 hover:text-slate-200'
@@ -182,18 +175,18 @@ az webapp up \\
                   Profile.ts
                 </button>
                 <button
-                  onClick={() => setActiveTab('azure')}
-                  className={`px-3 py-1 text-xs font-mono rounded-md transition-colors ${
-                    activeTab === 'azure'
+                  onClick={() => setActiveTab('projects')}
+                  className={`px-3 py-1 text-xs font-mono rounded-md transition-colors cursor-pointer ${
+                    activeTab === 'projects'
                       ? 'bg-slate-800 text-sky-300 font-semibold shadow-sm'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
-                  AzureDeploy.sh
+                  Projects.ts
                 </button>
                 <button
                   onClick={() => setActiveTab('skills')}
-                  className={`px-3 py-1 text-xs font-mono rounded-md transition-colors ${
+                  className={`px-3 py-1 text-xs font-mono rounded-md transition-colors cursor-pointer ${
                     activeTab === 'skills'
                       ? 'bg-slate-800 text-sky-300 font-semibold shadow-sm'
                       : 'text-slate-400 hover:text-slate-200'
@@ -214,7 +207,7 @@ az webapp up \\
               <div className="px-4 py-2.5 bg-slate-950/90 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
                 <div className="flex items-center gap-2">
                   <span className="inline-block w-2 h-2 rounded-full bg-sky-400 animate-ping" />
-                  <span>Build: Vite v8 · Node 22 LTS</span>
+                  <span>Build: Vite v8 · React 19 & Tailwind</span>
                 </div>
                 <a
                   href="https://ingeniouspritam.netlify.app/"

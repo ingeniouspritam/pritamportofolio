@@ -1,13 +1,12 @@
 import React from 'react';
-import { ArrowUp, Cloud, ExternalLink, Heart } from 'lucide-react';
+import { ArrowUp, ExternalLink, Heart } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData.ts';
 
 interface FooterProps {
   onOpenResume: () => void;
-  onOpenAzureGuide: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenResume, onOpenAzureGuide }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenResume }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -30,14 +29,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenResume, onOpenAzureGuide }
 
           {/* Quick links */}
           <div className="flex flex-wrap items-center justify-center gap-6 text-slate-400">
-            <button
-              onClick={onOpenAzureGuide}
-              className="hover:text-sky-300 transition-colors flex items-center gap-1.5 cursor-pointer"
-            >
-              <Cloud className="w-3.5 h-3.5" />
-              <span>Azure Deploy Guide</span>
-            </button>
-
             <button
               onClick={onOpenResume}
               className="hover:text-sky-300 transition-colors cursor-pointer"
@@ -80,8 +71,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenResume, onOpenAzureGuide }
           <div>
             © {new Date().getFullYear()} Pritam Kumar. All rights reserved. Built with React.js & Tailwind CSS.
           </div>
-          <div className="flex items-center gap-1 font-mono">
-            <span>Configured for Azure App Service & Static Web Apps</span>
+          <div className="flex items-center gap-1 font-mono text-slate-500">
+            <span>Modern Web Architecture</span>
           </div>
         </div>
       </div>
