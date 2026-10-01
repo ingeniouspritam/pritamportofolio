@@ -38,45 +38,56 @@ swa deploy ./dist --env production
 
 ---
 
-## Option 2: Azure App Service (Linux / Node.js)
+## Option 2: Azure App Service (Linux / Node 22 LTS)
 
-If you prefer deploying to **Azure App Service (Web App)**:
+To deploy on **Azure App Service (Web App)** using **Runtime stack: Node 22-lts**:
 
-### Configuration details:
-- **Runtime stack**: `Node 26 (Preview)` or `Node 20 / 22 LTS`
+### 1. Azure Portal Settings (When Creating App Service):
+- **Name**: `pritam-portfolio-app` (or any unique name)
+- **Publish**: `Code`
+- **Runtime stack**: `Node 22 LTS`
 - **Operating System**: `Linux`
-- **Startup Command**: `node server.ts` or `npm start`
-- The repository already includes `server.ts` which runs Express and serves `dist/` with SPA routing and `/api/health`.
+- **Region**: Central India / Southeast Asia / East US (your choice)
+- **Pricing Plan**: `Free (F1)` or `Basic (B1)`
+- **Startup Command**: `npm start` or `node server.js`
 
-### Deploy with Node 26 (Preview) using Azure CLI:
+### 2. Fast 1-Command CLI Deployment with Node 22 LTS:
 ```bash
-# 1. Log in to Azure
+# Step 1: Login to Azure
 az login
 
-# 2. Build the application
+# Step 2: Build the production bundle (builds Vite & compiles server.js)
 npm run build
 
-# 3. Create and deploy with Node 26 (Preview):
+# Step 3: Create & Deploy directly with Runtime Stack Node 22-lts:
 az webapp up \
   --resource-group rg-pritam-portfolio \
   --name pritam-portfolio-app \
-  --runtime "NODE:26-preview" \
+  --runtime "NODE:22-lts" \
+  --os-type Linux \
   --sku B1
+```
 
-# Or configure existing Linux web app to use Node 26 (preview):
+### 3. Switch an Existing App Service to Node 22 LTS:
+```bash
 az webapp config set \
   --resource-group rg-pritam-portfolio \
   --name pritam-portfolio-app \
-  --linux-fx-version "NODE|26-preview"
+  --linux-fx-version "NODE|22-lts"
 ```
 
-### Deploy with Node 20 / 22 LTS:
-```bash
-az webapp up \
-  --resource-group rg-pritam-portfolio \
-  --name pritam-portfolio-app \
-  --runtime "NODE:20-lts" \
-  --sku B1
+### 4. Verify Active Node 22 Runtime:
+Once deployed, browse to your app's health endpoint:
+`https://<your-app-name>.azurewebsites.net/api/health`
+The JSON output will display:
+```json
+{
+  "status": "ok",
+  "message": "Azure Web Service is healthy",
+  "developer": "Pritam Kumar",
+  "nodeVersion": "v22.x.x",
+  "environment": "production"
+}
 ```
 
 ---

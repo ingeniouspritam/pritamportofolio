@@ -40,11 +40,18 @@ az webapp config set \\
   --name pritam-portfolio-app \\
   --linux-fx-version "NODE|26-preview"`;
 
-  const appServiceCliCommand = `# Deploy using Node 20 LTS or Node 22 LTS on Azure App Service
+  const appServiceCliCommand = `# Step 1: Login to Azure
+az login
+
+# Step 2: Build the production bundle
+npm run build
+
+# Step 3: Deploy with Runtime Stack: Node 22 LTS
 az webapp up \\
   --resource-group rg-pritam-portfolio \\
   --name pritam-portfolio-app \\
-  --runtime "NODE:20-lts" \\
+  --runtime "NODE:22-lts" \\
+  --os-type Linux \\
   --sku B1`;
 
   const staticWebAppConfig = `{
@@ -221,16 +228,18 @@ az webapp up \\
                 </div>
               </div>
 
-              {/* Standard LTS CLI */}
+              {/* Node 22 LTS CLI (Requested Primary Stack) */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">Deploy with Node 20 / 22 LTS</h4>
+                  <h4 className="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <span>Deploy with Node 22 LTS (Selected Stack)</span>
+                  </h4>
                   <button
                     onClick={() => handleCopy('appservice-cli', appServiceCliCommand)}
                     className="flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300 cursor-pointer"
                   >
                     {copiedId === 'appservice-cli' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedId === 'appservice-cli' ? 'Copied' : 'Copy LTS Commands'}</span>
+                    <span>{copiedId === 'appservice-cli' ? 'Copied' : 'Copy Node 22 Commands'}</span>
                   </button>
                 </div>
                 <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-slate-300 overflow-x-auto">

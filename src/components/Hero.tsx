@@ -34,7 +34,7 @@ swa deploy ./dist \\
 # Or Deploy to Azure App Service (Linux Node.js)
 az webapp up \\
   --name pritam-portfolio-app \\
-  --runtime "NODE:20-lts" \\
+  --runtime "NODE:22-lts" \\
   --sku B1`,
     skills: `{
   "frontend": ["React.js", "Tailwind CSS", "HTML5", "CSS3", "JavaScript"],
@@ -214,7 +214,7 @@ az webapp up \\
               <div className="px-4 py-2.5 bg-slate-950/90 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
                 <div className="flex items-center gap-2">
                   <span className="inline-block w-2 h-2 rounded-full bg-sky-400 animate-ping" />
-                  <span>Build: Vite v8 · Node 20 LTS</span>
+                  <span>Build: Vite v8 · Node 22 LTS</span>
                 </div>
                 <a
                   href="https://ingeniouspritam.netlify.app/"
